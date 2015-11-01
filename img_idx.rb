@@ -17,12 +17,12 @@ class ImageIndex
     end
 
     def tall(opts={'ratio'=>0.6})
-      opts['ratio'] = 1 / opts['ratio'] if opts['ratio'] > 1
+      opts['ratio'].to_f = 1 / opts['ratio'].to_f if opts['ratio'].to_f > 1
       seek opts
     end
 
     def wide(opts={'ratio'=>1.6})
-      opts['ratio'] = 1 / opts['ratio'] if opts['ratio'] < 1
+      opts['ratio'].to_f = 1 / opts['ratio'].to_f if opts['ratio'].to_f < 1
       seek opts
     end
 
@@ -36,11 +36,11 @@ class ImageIndex
         'height' => 0,
         'width'  => 0
       })
-      opt_size = opts['size'][0..-2]
+      opt_size = opts['size'][0..-2].to_i
       opt_unit = opts['size'][-2..-1]
 
       property_map.select do |f,h,w,r,s|
-        size = s[0..-2]
+        size = s[0..-2].to_i
         unit = s[-2..-1]
 
         ratio_test(opts['ratio'],r) &&
@@ -52,10 +52,10 @@ class ImageIndex
     private
 
     def ratio_test(r_thresh, r)
-      if r_thresh < 1 && r < 1
-        return true if r < r_thresh
+      if r_thresh < 1 && r.to_f < 1
+        return true if r.to_f < r_thresh
       else
-        return true if r > r_thresh
+        return true if r.to_f > r_thresh
       end
     end
   end
