@@ -50,6 +50,17 @@ module ImageIdx
       end
     end
 
+    def export(set=:wide)
+      files = send(set)
+      time = Time.now.strftime("%FT%T%:z")
+      File.open("#{set}_images_#{time}.txt", 'w') do |f|
+        files.each do |fl,h,w,r,s|
+          f << fl
+          f << "\n"
+        end
+      end
+    end
+
     private
 
     def ratio_test(r_thresh, r)
