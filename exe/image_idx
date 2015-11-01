@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+
+require "image_idx"
+
+files = case ARGV[1]
+when 'tall'
+  ImageIdx.tall
+when 'wide'
+  ImageIdx.wide
+end
+
+files.map(&:first).each do |f|
+  puts f
+end
+
